@@ -49,8 +49,7 @@ def createNewIndex(documents_path: Path, persist_path: Path, embeddings):
                                      persist_directory=str(persist_path))
     st.write("-- Vectors Created -- ")
 
-    res = vectordb.persist()
-    st.write(res)
+    vectordb.persist()
     st.write("-- Vectors Persisted -- ")
 
     return vectordb
