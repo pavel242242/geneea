@@ -57,10 +57,12 @@ def createNewIndex(documents_path: Path, persist_path: Path, embeddings):
 
 
 if st.sidebar.button("Click me") and repo_url and openai_token:
-    st.write(repo_url)
-    st.write(openai_token)
-    st.write("Generating chromadb")
     REPOSITORY_URL = repo_url
+    OPENAI_KEY = openai_token
+    st.write("Using")
+    st.write("repo: " + repo_url)
+    st.write("Token:" + openai_token)
+    st.write("Generating chromadb")
     if os.path.exists(REPOSITORY_LOCAL_PATH):
         shutil.rmtree(REPOSITORY_LOCAL_PATH)
     st.write("Cloning repo")
