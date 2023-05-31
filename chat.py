@@ -15,7 +15,7 @@ def loadExistingIndex(persist_directory: Path, embeddings):
     return vectordb
 
 
-PERSIST_PATH = "out/files"
+PERSIST_PATH = "in/files"
 OPENAI_KEY = openai_token
 
 from IPython.display import HTML, display
