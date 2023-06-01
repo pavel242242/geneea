@@ -5,6 +5,7 @@ from langchain.chains import ConversationalRetrievalChain
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from pathlib import Path
+import os
 
 openai_token = st.sidebar.text_input("openai token")
 
@@ -18,7 +19,7 @@ def loadExistingIndex(persist_directory: Path, embeddings):
 PERSIST_PATH = "in/files"
 OPENAI_KEY = openai_token
 
-from IPython.display import HTML, display
+
 
 
 def findAnswer(query: str):
@@ -31,6 +32,11 @@ def findAnswer(query: str):
 
 
 question = st.sidebar.text_input("question")
+
+if os.getenv('openai_apitoken'):
+    st.sidebar.text(os.getenv('openai_apitoken')[0:6])
+else:
+    st.sidebar.text("no env set")
 
 if st.sidebar.button("Click me") and question and openai_token:
     if OPENAI_KEY:
