@@ -33,7 +33,7 @@ if os.getenv('openai_apitoken'):
             st.write("using openai token from env: "+ os.getenv('openai_apitoken')[0:6] + "...")
     openai_token = os.getenv('openai_apitoken')
 else:
-    openai_token = st.sidebar.text_input("openai token")
+    st.sidebar.text_input("openai token")
 
 
 def loadDocuments(path: Path):
