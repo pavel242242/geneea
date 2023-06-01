@@ -34,7 +34,7 @@ else:
     openai_token = st.sidebar.text_input("openai token")
 
 if st.sidebar.button("Click me") and question and openai_token:
-    if OPENAI_KEY:
+    if openai_token:
         embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_KEY)
         chatOpenAI = ChatOpenAI(openai_api_key=OPENAI_KEY,
                                 temperature=0,
