@@ -31,7 +31,7 @@ if os.getenv('openai_apitoken'):
         st.write("using openai token from env: "+ os.getenv('openai_apitoken')[0:6] + "...")
     openai_token = os.getenv('openai_apitoken')
 else:
-    st.sidebar.text_input("openai token")
+    openai_token = st.sidebar.text_input("openai token")
 
 if st.sidebar.button("Click me") and question and openai_token:
     if OPENAI_KEY:
