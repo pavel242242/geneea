@@ -4,3 +4,4 @@ tiktoken
 chromadb
 unstructured  
 GitPython
+streamlit
