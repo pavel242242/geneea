@@ -14,10 +14,6 @@ def loadExistingIndex(persist_directory: Path, embeddings):
 
 
 PERSIST_PATH = "in/files"
-OPENAI_KEY = openai_token
-
-
-
 
 def findAnswer(query: str):
     result = qa({"question": query, "chat_history": []})

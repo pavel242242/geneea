@@ -25,16 +25,6 @@ if not os.path.exists('out/files'):
 #REPOSITORY_URL = "https://github.com/keboola/connection-docs"
 REPOSITORY_LOCAL_PATH = "repo"
 
-repo_url = st.sidebar.text_input("repo url")
-
-if os.getenv('openai_apitoken'):
-    with st.sidebar:
-        st.write("using openai token from env: "+ os.getenv('openai_apitoken')[0:6] + "...")
-    openai_token = os.getenv('openai_apitoken')
-else:
-    st.sidebar.text_input("openai token")
-
-
 def loadDocuments(path: Path):
     loader = DirectoryLoader(path,
                              glob="**/*.md",
@@ -60,6 +50,14 @@ def createNewIndex(documents_path: Path, persist_path: Path, embeddings):
 
     return vectordb
 
+repo_url = st.sidebar.text_input("repo url")
+
+if os.getenv('openai_apitoken'):
+    with st.sidebar:
+        st.write("using openai token from env: "+ os.getenv('openai_apitoken')[0:6] + "...")
+    openai_token = os.getenv('openai_apitoken')
+else:
+    st.sidebar.text_input("openai token")
 
 if st.sidebar.button("Click me") and repo_url and openai_token:
     REPOSITORY_URL = repo_url
