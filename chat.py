@@ -30,7 +30,7 @@ def findAnswer(query: str):
 
 question = st.sidebar.text_input("question")
 
-    if os.getenv('openai_apitoken'):
+if os.getenv('openai_apitoken'):
         st.sidebar.text("using openai token from env: "+ os.getenv('openai_apitoken')[0:6] + "...")
         openai_token = os.getenv('openai_apitoken')
     else:
