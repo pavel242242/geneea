@@ -7,9 +7,6 @@ from langchain.vectorstores import Chroma
 from pathlib import Path
 import os
 
-openai_token = st.sidebar.text_input("openai token")
-
-
 def loadExistingIndex(persist_directory: Path, embeddings):
     vectordb = Chroma(persist_directory=str(persist_directory),
                       embedding_function=embeddings)
@@ -34,9 +31,10 @@ def findAnswer(query: str):
 question = st.sidebar.text_input("question")
 
 if os.getenv('openai_apitoken'):
-    st.sidebar.text(os.getenv('openai_apitoken')[0:6])
+    st.sidebar.text("using openai token from env: "+ os.getenv('openai_apitoken')[0:6] + "...")
+    openai_token = os.getenv('openai_apitoken')
 else:
-    st.sidebar.text("no env set")
+    openai_token = st.sidebar.text_input("openai token")
 
 if st.sidebar.button("Click me") and question and openai_token:
     if OPENAI_KEY:
