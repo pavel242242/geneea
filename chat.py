@@ -32,8 +32,7 @@ question = st.sidebar.text_input("question")
 
 if os.getenv('openai_apitoken'):
     with st.sidebar:
-        with st.echo():
-            st.write("using openai token from env: "+ os.getenv('openai_apitoken')[0:6] + "...")
+        st.write("using openai token from env: "+ os.getenv('openai_apitoken')[0:6] + "...")
     openai_token = os.getenv('openai_apitoken')
 else:
     st.sidebar.text_input("openai token")
