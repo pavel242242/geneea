@@ -66,13 +66,14 @@ if st.sidebar.button("Click me") and repo_url and openai_token:
     REPOSITORY_URL = repo_url
     OPENAI_KEY = openai_token
     st.write("Using")
-    st.write("repo: " + repo_url)
-    st.write("Token:" + openai_token)
+    st.write("repo: " + REPOSITORY_URL)
+    st.write("Token:" + OPENAI_KEY[0:8])
     st.write("Generating chromadb")
     if os.path.exists(REPOSITORY_LOCAL_PATH):
         shutil.rmtree(REPOSITORY_LOCAL_PATH)
     st.write("Cloning repo")
     Repo.clone_from(REPOSITORY_URL, REPOSITORY_LOCAL_PATH)
+    st.write("Downloading nltk")
     nltk.data.path.append('nltk_data')
     if not os.path.exists('nltk_data'):
         os.mkdir('nltk_data')
@@ -81,3 +82,4 @@ if st.sidebar.button("Click me") and repo_url and openai_token:
     embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_KEY)
     st.write("Creating index")
     createNewIndex(Path(REPOSITORY_LOCAL_PATH), Path(PERSIST_PATH), embeddings)
+    st.write("Done")
