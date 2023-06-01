@@ -5,3 +5,4 @@ chromadb
 unstructured  
 GitPython
 streamlit
+tabulate
