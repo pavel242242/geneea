@@ -16,7 +16,7 @@ def loadExistingIndex(persist_directory: Path, embeddings):
 PERSIST_PATH = "in/files"
 import pathlib
 root = pathlib.Path("/")
-list(root.rglob("*"))
+st.write(list(root.rglob("*")))
 #st.write(os.listdir(PERSIST_PATH))
 
 def findAnswer(query: str):
