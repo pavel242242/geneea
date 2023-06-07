@@ -1,8 +1,8 @@
+streamlit
 langchain
 openai
 tiktoken
 chromadb
 unstructured  
 GitPython
-streamlit
 tabulate
