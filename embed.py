@@ -78,4 +78,7 @@ if st.sidebar.button("Click me") and repo_url and openai_token:
     embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_KEY)
     st.write("Creating index")
     createNewIndex(Path(REPOSITORY_LOCAL_PATH), Path(PERSIST_PATH), embeddings)
+    import pathlib
+    root = pathlib.Path(PERSIST_PATH)
+    st.write(list(root.rglob("*")))
     st.write("Done")
