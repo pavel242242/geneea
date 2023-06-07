@@ -13,10 +13,8 @@ def loadExistingIndex(persist_directory: Path, embeddings):
     return vectordb
 
 
-PERSIST_PATH = "in/files"
-import pathlib
-root = pathlib.Path("/")
-st.write(list(root.rglob("*")))
+PERSIST_PATH = "/data/in/files"
+
 #st.write(os.listdir(PERSIST_PATH))
 
 def findAnswer(query: str):
