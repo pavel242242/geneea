@@ -40,7 +40,7 @@ if st.sidebar.button("Click me") and question and openai_token:
                                 temperature=0,
                                 model_name="gpt-3.5-turbo")
         vectordb = loadExistingIndex(Path(PERSIST_PATH), embeddings)
-
+        vectordb.get()
         qa = ConversationalRetrievalChain.from_llm(
             chatOpenAI, vectordb.as_retriever(), return_source_documents=True)
         findAnswer(question)
