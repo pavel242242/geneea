@@ -6,6 +6,8 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from pathlib import Path
 import os
+import pathlib
+import zipfile
 
 def loadExistingIndex(persist_directory: Path, embeddings):
     vectordb = Chroma(persist_directory=str(persist_directory),
@@ -14,7 +16,7 @@ def loadExistingIndex(persist_directory: Path, embeddings):
 
 
 PERSIST_PATH = "/data/in/files"
-import pathlib
+
 root = pathlib.Path('/data')
 st.write(list(root.rglob("*")))
 #st.write(os.listdir(PERSIST_PATH))
@@ -27,6 +29,13 @@ def findAnswer(query: str):
              [d.metadata['source'] for d in result["source_documents"]])
     st.write("--")
 
+def decompress_zip(zip_file_path, output_directory):
+    with zipfile.ZipFile(zip_file_path, 'r') as zipf:
+        zipf.extractall(output_directory)
+
+zip_file_to_decompress = '/data/in/files/chromaoutput.zip.zip'
+output_directory = '/data/in/files/'
+decompress_zip(zip_file_to_decompress, output_directory)
 
 question = st.sidebar.text_input("question")
 
