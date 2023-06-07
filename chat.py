@@ -16,7 +16,9 @@ def loadExistingIndex(persist_directory: Path, embeddings):
 PERSIST_PATH = "in/files"
 st.write(os.listdir('.'))
 st.write(os.listdir('../.'))
-st.write(os.listdir(PERSIST_PATH))
+st.write(os.listdir('../../.'))
+st.write(os.listdir('/'))
+#st.write(os.listdir(PERSIST_PATH))
 
 def findAnswer(query: str):
     result = qa({"question": query, "chat_history": []})
