@@ -14,7 +14,6 @@ import shutil
 import nltk
 
 # for both indexing and querying
-#OPENAI_KEY = "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"
 PERSIST_PATH = "out/files"
 if not os.path.exists('out'):
     os.mkdir('out')
