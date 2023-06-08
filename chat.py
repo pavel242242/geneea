@@ -34,7 +34,7 @@ def decompress_all_zips(directory_path, output_directory):
         file_path = os.path.join(directory_path, file)
         if file.endswith(".zip"):
             with zipfile.ZipFile(file_path, 'r') as zipf:
-                zipf.extractall(output_directory, overwrite=True)
+                zipf.extractall(output_directory)
 
 zip_file_to_decompress = '/data/in/files/'
 output_directory = '/data/in/files/chroma'
