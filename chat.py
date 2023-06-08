@@ -33,7 +33,7 @@ def decompress_zip(zip_file_path, output_directory):
     with zipfile.ZipFile(zip_file_path, 'r') as zipf:
         zipf.extractall(output_directory, overwrite=True)
 
-zip_file_to_decompress = '/data/in/files/chromaoutput.zip'
+zip_file_to_decompress = '/data/in/files/*_chromaoutput.zip'
 output_directory = '/data/in/files/'
 decompress_zip(zip_file_to_decompress, output_directory)
 
