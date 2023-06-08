@@ -38,7 +38,7 @@ def decompress_all_zips(directory_path, output_directory):
 
 zip_file_to_decompress = '/data/in/files/'
 output_directory = '/data/in/files/'
-decompress_zip(zip_file_to_decompress, output_directory)
+decompress_all_zips(zip_file_to_decompress, output_directory)
 
 question = st.sidebar.text_input("question")
 
