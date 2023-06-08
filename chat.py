@@ -14,9 +14,6 @@ def loadExistingIndex(persist_directory: Path, embeddings):
                       embedding_function=embeddings)
     return vectordb
 
-root = pathlib.Path('/data')
-st.write(list(root.rglob("*")))
-#st.write(os.listdir(PERSIST_PATH))
 
 def findAnswer(query: str):
     result = qa({"question": query, "chat_history": []})
@@ -55,7 +52,6 @@ if st.sidebar.button("Click me") and question and openai_token:
                                 temperature=0,
                                 model_name="gpt-3.5-turbo")
         vectordb = loadExistingIndex(Path(PERSIST_PATH), embeddings)
-        st.write(vectordb.get())
         qa = ConversationalRetrievalChain.from_llm(
             chatOpenAI, vectordb.as_retriever(), return_source_documents=True)
         findAnswer(question)
