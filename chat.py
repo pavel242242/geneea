@@ -14,14 +14,6 @@ def loadExistingIndex(persist_directory: Path, embeddings):
                       embedding_function=embeddings)
     return vectordb
 
-if not os.path.exists('/data/in/files/chroma'):
-    os.mkdir('/data/in/files/chroma')
-    PERSIST_PATH = "/data/in/files/chroma"
-    zip_file_to_decompress = '/data/in/files/'
-    output_directory = '/data/in/files/chroma'
-    decompress_all_zips(zip_file_to_decompress, output_directory)
-
-
 root = pathlib.Path('/data')
 st.write(list(root.rglob("*")))
 #st.write(os.listdir(PERSIST_PATH))
@@ -41,7 +33,12 @@ def decompress_all_zips(directory_path, output_directory):
             with zipfile.ZipFile(file_path, 'r') as zipf:
                 zipf.extractall(output_directory)
 
-
+if not os.path.exists('/data/in/files/chroma'):
+    os.mkdir('/data/in/files/chroma')
+    PERSIST_PATH = "/data/in/files/chroma"
+    zip_file_to_decompress = '/data/in/files/'
+    output_directory = '/data/in/files/chroma'
+    decompress_all_zips(zip_file_to_decompress, output_directory)
 
 question = st.sidebar.text_input("question")
 
