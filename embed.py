@@ -1,29 +1,25 @@
 import streamlit as st
-
 from langchain.text_splitter import TokenTextSplitter
-from langchain.document_loaders import DirectoryLoader
-from langchain.document_loaders import UnstructuredMarkdownLoader
+from langchain.document_loaders import DirectoryLoader, UnstructuredMarkdownLoader
 from git import Repo
-
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from pathlib import Path
-
 import os
 import shutil
 import nltk
 
-# for both indexing and querying
+# Directory paths
 PERSIST_PATH = "out/files"
+REPOSITORY_LOCAL_PATH = "repo"
+
+# Create directories if they don't exist
 if not os.path.exists('out'):
     os.mkdir('out')
 if not os.path.exists('out/files'):
     os.mkdir('out/files')
 
-# only for indexing
-#REPOSITORY_URL = "https://github.com/keboola/connection-docs"
-REPOSITORY_LOCAL_PATH = "repo"
-
+# Function to load documents from a directory
 def loadDocuments(path: Path):
     loader = DirectoryLoader(path,
                              glob="**/*.md",
@@ -31,6 +27,7 @@ def loadDocuments(path: Path):
     return loader.load()
 
 
+# Function to create a new index
 def createNewIndex(documents_path: Path, persist_path: Path, embeddings):
     data = loadDocuments(documents_path)
     st.write("-- Documents Loaded -- ")
@@ -49,36 +46,43 @@ def createNewIndex(documents_path: Path, persist_path: Path, embeddings):
 
     return vectordb
 
-repo_url = st.sidebar.text_input("repo url")
+# Get repository URL and OpenAI token from the sidebar
+repo_url = st.sidebar.text_input("Repository URL")
+openai_token = st.sidebar.text_input("OpenAI token")
 
-if os.getenv('openai_apitoken'):
-    with st.sidebar:
-        st.write("using openai token from env: "+ os.getenv('openai_apitoken')[0:6] + "...")
-    openai_token = os.getenv('openai_apitoken')
-else:
-    openai_token = st.sidebar.text_input("openai token")
-
+# Perform indexing when the button is clicked and valid inputs are provided
 if st.sidebar.button("Click me") and repo_url and openai_token:
     REPOSITORY_URL = repo_url
     OPENAI_KEY = openai_token
-    st.write("Using")
-    st.write("repo: " + REPOSITORY_URL)
-    st.write("Token:" + OPENAI_KEY[0:8])
-    st.write("Generating chromadb")
+    st.write("Using:")
+    st.write("Repository: " + REPOSITORY_URL)
+    st.write("Token: " + OPENAI_KEY[0:8])
+    st.write("Generating ChromaDB")
+
+    # Clone the repository
     if os.path.exists(REPOSITORY_LOCAL_PATH):
         shutil.rmtree(REPOSITORY_LOCAL_PATH)
-    st.write("Cloning repo")
+    st.write("Cloning repository")
     Repo.clone_from(REPOSITORY_URL, REPOSITORY_LOCAL_PATH)
-    st.write("Downloading nltk")
+
+    # Download NLTK data
+    st.write("Downloading NLTK data")
     nltk.data.path.append('nltk_data')
     if not os.path.exists('nltk_data'):
         os.mkdir('nltk_data')
     nltk.download('popular', download_dir='nltk_data')
-    st.write("Init embedder")
+
+    # Initialize OpenAI embeddings
+    st.write("Initializing embedder")
     embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_KEY)
+
+    # Create the index
     st.write("Creating index")
     createNewIndex(Path(REPOSITORY_LOCAL_PATH), Path(PERSIST_PATH), embeddings)
+
+    # List the files in the persist directory
     import pathlib
     root = pathlib.Path(PERSIST_PATH)
     st.write(list(root.rglob("*")))
+
     st.write("Done")

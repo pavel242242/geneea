@@ -59,7 +59,7 @@ else:
     openai_token = st.sidebar.text_input("OpenAI token")
 
 # Perform the question answering when the button is clicked and valid inputs are provided
-if st.sidebar.button("Click me") and question and openai_token:
+if st.sidebar.button("Search the docs") and question and openai_token:
     if openai_token:
         # Initialize OpenAI embeddings and chat models
         embeddings = OpenAIEmbeddings(openai_api_key=openai_token)
