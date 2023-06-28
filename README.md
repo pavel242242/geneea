@@ -1,1 +1,3 @@
 # geneea
+- neco
+- a druhy
